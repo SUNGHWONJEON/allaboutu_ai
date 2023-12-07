@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import pose
-
+import run
 
 app = Flask(__name__)
 CORS(app)
@@ -37,17 +37,27 @@ def api_endpoint():
     print('renameFileName2 : ' + renameFileName2)
     print('image_path : ' + image_path)
     print('change_path : ' + change_path)
-    pose.playMoveNet(image_path, change_path)
-
+    type = pose.playMoveNet(image_path, change_path)
+    
     params = {
         'org_path': org_path,
         'image_path' : img_path,
         'change_path' : renameFileName2,
-        #'type' : type
+        'type' : type
         #'indexed_keypoints' : indexed_keypoints
     }
 
     return jsonify(params)
+
+## upload
+@app.route("/upload", methods=['POST'])
+def upload_file():
+
+    img = 'face.jpg'
+    print('img : ', img)
+    result = run.upload_file(img)
+    print('result : ', result)
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=4444)

@@ -218,5 +218,6 @@ def playMoveNet(image_path, change_path):
     return returnType(indexed_keypoints)
 
 def returnType(keypoints):
-
+    #keypoints
+    type = 1
     return type
